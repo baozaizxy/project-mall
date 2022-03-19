@@ -13,6 +13,11 @@ export default {
   components: {
     HelloWorld
   }
+  data(){
+    retuen{
+    age 30;
+    }
+  }
 }
 </script>
 
