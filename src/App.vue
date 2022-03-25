@@ -6,6 +6,7 @@
 
 <script>
 import storage from'./storage'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -17,7 +18,8 @@ export default {
     }
   },
   mounted(){
-    storage.setItem('a',1);
+    let url="/activity/servicetime"
+    
   }
 }
 </script>

@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode=development",
-    "test":  "vue-cli-service serve --mode=test",
-    "prev":  "vue-cli-service serve --mode=prev",
+    "test": "vue-cli-service serve --mode=test",
+    "prev": "vue-cli-service serve --mode=prev",
     "build": "vue-cli-service build --mode=production",
-    "lint":  "vue-cli-service lint --mode"
+    "lint": "vue-cli-service lint --mode"
   },
   "dependencies": {
     "core-js": "^3.6.5",
