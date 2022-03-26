@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import storage from'./storage'
-import axios from 'axios'
+import {storage} from'./storage'
+import {axios} from 'axios'
 
 export default {
   name: 'App',
@@ -15,11 +15,13 @@ export default {
   },
   data(){
     return{
+      res:{}
     }
   },
   mounted(){
-    let url="/activity/servicetime"
-    
+   this.axios.get('/mock/login.json').then((res)=>{
+     this.res=res;
+   });
   }
 }
 </script>
