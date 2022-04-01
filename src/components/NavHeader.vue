@@ -34,7 +34,12 @@
               <div class="children"></div>
             </div>
           </div>
-          <div class="header-search"></div>
+          <div class="header-search">
+            <div class="wrapper">
+              <input type="text" name="keyword">
+              <a href="javascript:;"></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -124,16 +129,20 @@
             color: #333333;
             font-weight: 16px;
             line-height: 112px;
+            margin-right: 20px;
             span{
               cursor:pointer;
             }
-            &:hover{
-              
+            &:hover{  
         }
       }
+        }
+        .header-search{
+          
 
-    }
-    }
+        }
+
+      }
     }
   }
   </style>
