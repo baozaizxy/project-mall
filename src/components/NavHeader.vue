@@ -138,7 +138,7 @@
     }
     .nav-header{
       .container{
-        positive:relative;
+        position:relative;
         height:112px;
         @include flex();
         .header-logo{
