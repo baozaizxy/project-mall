@@ -110,7 +110,7 @@
 <style lang="scss">
 
  @import './../assets/scss/base.scss';
- //@import './../assets/scss/mixin.scss';
+ @import './../assets/scss/mixin.scss';
  @import './../assets/scss/config.scss';
 
 .header{
@@ -120,7 +120,7 @@
       background-color:#333333;
       color:#B0B0B0;
     .container{
-     // @include flex();
+     @include flex();
       a{
         display:inline-block;
         color:#B0B0B0;
@@ -132,7 +132,7 @@
         text-align:center;
         color:#ffffff;
         .icon-cart{
-        // @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
+         @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
           margin-right:4px;
         }
       }
@@ -140,9 +140,9 @@
     }
     .nav-header{
       .container{
-        //position:relative;
-        //height:112px;
-        //@include flex();
+        @include flex();
+        position:relative;
+        height:112px;
         .header-logo{
           display:inline-block;
           width: 55px;
@@ -155,12 +155,12 @@
             height:55px;
             &:before{
               content:' ';
-              //@include bgImg(55px,55px,'/imgs/mi-logo.png',55px);
+              @include bgImg(55px,55px,'/imgs/mi-logo.png',55px);
               transition:margin .2s;
             }
             &:after{
               content:' ';
-              //@include bgImg(55px,55px,'/imgs/mi-home.png',55px);
+              @include bgImg(55px,55px,'/imgs/mi-home.png',55px);
             }
             &:hover:before{
               margin-left:-55px;
@@ -256,9 +256,8 @@
               box-sizing: border-box;
             }
             a{
-              //@include bgImg(18px,18px,'/imgs/icon-search.png');
+              @include bgImg(18px,18px,'/imgs/icon-search.png');
               margin-left:17px;
-
             }
           }
 
