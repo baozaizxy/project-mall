@@ -21,7 +21,8 @@ export default {
 </script>
 
 <style>
-@import'./assets/scss/reset.scss'
+@import'./assets/scss/reset.scss';
+@import'./assets/scss/button.scss';
 </style>
 
 <script type="text/javascript"> function load(){ 

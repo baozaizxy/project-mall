@@ -1,4 +1,5 @@
 <template>
+
     <div class="index">
       <div class="container">
         <div class="swiper-box">
@@ -53,12 +54,12 @@
         </div>
         <div class="ads-box">
         <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
-          <img v-bind:src="item.img" alt="">
+          <img v-lazy="item.img" alt="">//lazy自己可以将ing封装 不需要再额外封装
         </a>
       </div>
         <div class="banner">
         <a href="/#/product/30">
-          <img src="/imgs/banner-1.png" alt="">
+          <img v-lazy=" '/imgs/banner-1.png'" alt="">
         </a>
       </div>
     </div>
@@ -68,32 +69,47 @@
               <h2>手机</h2>
               <div class="wrapper">
                 <div class="banner-left">
-                  <a href="/#/product/35"><img src="/imgs/mix-alpha.jpg" alt=""></a>
+                  <a href="/#/product/35"><img v-lazy="'/imgs/mix-alpha.jpg'" alt=""></a>
                 </div>
                 <div class="list-box">
                   <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
-                  <div class="item" v-for="(item,j) in arr" v-bind:key="j">
-                    <span v-bind:class="{'new-pro':j%2==0}">新品</span>
-                    <div class="item-img">
-                      <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6f2493e6c6fe8e2485c407e5d75e3651.jpg" alt="">
-                    </div>
-                    <div class="item-info">
-                      <h3>小米9</h3>
-                      <p>晓龙855，索尼4800万超广角微距</p>
-                      <p class="price" @click="addCart(item.id)">2999元</p>
-                    </div>
-                  </div>
+                    <div class="item" v-for="(item,j) in arr" v-bind:key="j">
+                      <span v-bind:class="{'new-pro':j%2==0}">新品</span>
+                      <div class="item-img">
+                        <img v-lazy="item.mainImage" alt="">
+                      </div>
+                     <div class="item-info">
+                        <h3>{{item.name}}</h3>
+                        <p>{{item.subtitle}}</p>
+                        <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
+                      </div>
+                   </div>
                   </div>
                 </div>
               </div>
         </div>
           <service-bar></service-bar>
+          <modal 
+              title="提示" 
+              sureText="查看购物车" 
+              btnType="1" 
+              modalType="middle" 
+              v-bind:showModal="showModal"
+              v-on:submit="goToCart"
+              v-on:cancel="showModal=false"
+              >
+              <template v-slot:body>
+                <p>商品添加成功！</p>
+              </template>
+      </modal>
       </div>
     </div>
+
 </template>
 <script>
   
   import ServiceBar from './../components/ServiceBar'
+  import Modal from './../components/Modal'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
   import 'swiper/dist/css/swiper.css'
   export default{
@@ -101,7 +117,8 @@
     components:{
       swiper,
       swiperSlide,
-      ServiceBar
+      ServiceBar,
+      Modal
     },
     data(){
       return{
@@ -184,7 +201,36 @@
           }
         ],
         phoneList:[
-          [1,1,1,1],[1,1,1,1]]
+          ],
+        showModal:false
+      }
+    },
+    mounted(){
+      this.init();
+    },
+    methods:{
+      init(){
+        this.axios.get('/products',{
+          params:{
+            categoryId:100012,
+            pageSize:14
+          }
+        }).then((res)=>{
+          res.list = res.list.slice(6,14);
+          this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
+        })
+      },
+      addCart(id){
+        this.axios.post('/carts',{
+          productId:id,
+          selected: true
+        }).then((res)=>{
+          this.showModal = true;
+          this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+        });
+      },
+      goToCart(){
+        this.$router.push('/cart');
       }
     }
   }
@@ -285,7 +331,7 @@
   .banner{
     margin-bottom:50px;
   }
-   .product-box{
+  .product-box{
       background-color:$colorJ;
       padding:30px 0 50px;
       h2{
@@ -322,8 +368,8 @@
                 width:67px;
                 height:24px;
                 font-size:14px;
-                line-height:24px;
-                color:$colorG;
+                line-height:24px;//使字体居中
+                color:$colorG;//秒杀、新品字体颜色
                 &.new-pro{
                   background-color:#7ECF68;
                 }
@@ -366,6 +412,6 @@
           }
          }
       }
-   }
+  }
 }
 </style>
