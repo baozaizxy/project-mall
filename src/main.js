@@ -6,6 +6,25 @@ import VueAxios from 'vue-axios'
 import App from './App.vue'
 //import env from './env'
 
+//import Express from 'express'
+let express = require('express')
+let app = express()
+let cors = require('cors')
+let bodyParser = require('body-parser')
+let Router = require('./router')
+
+app.use(bodyParser.json());  //配置解析，用于解析json和urlencoded格式的数据
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors())              //配置跨域
+app.use(Router)              //配置路由
+
+app.listen(80, () => {
+    // eslint-disable-next-line no-console
+    console.log('服务器启动成功');
+})
+
+
+
 //根据前端的跨域方式做调整/a/b:/api/a/b=> /a/b
 //axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5dc7afee2b69d9223b633cbb/mimall';
 axios.defaults.baseURL='/api';
