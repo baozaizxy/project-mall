@@ -44,11 +44,13 @@
         default:'取消'
       },
       showModal:Boolean
-    }
+    } 
   }
 </script>
 <style lang="scss">
 @import './../assets/scss/config.scss';
 @import './../assets/scss/mixin.scss';
+@import './../assets/scss/modal.scss'
+
 
 </style>

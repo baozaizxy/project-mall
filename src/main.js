@@ -3,26 +3,10 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import store from './store'
 import App from './App.vue'
+import VueCookie from 'vue-cookie'
 //import env from './env'
-
-//import Express from 'express'
-let express = require('express')
-let app = express()
-let cors = require('cors')
-let bodyParser = require('body-parser')
-let Router = require('./router')
-
-app.use(bodyParser.json());  //配置解析，用于解析json和urlencoded格式的数据
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cors())              //配置跨域
-app.use(Router)              //配置路由
-
-app.listen(80, () => {
-    // eslint-disable-next-line no-console
-    console.log('服务器启动成功');
-})
-
 
 
 //根据前端的跨域方式做调整/a/b:/api/a/b=> /a/b
@@ -34,21 +18,29 @@ axios.defaults.timeout=8000;
 //接口错误拦截
 axios.interceptors.response.use(function(response){
   let res=response.data;
+  let path =location.hash;
   if(res.status==0){
     return res.data;
   }else if(res.status==10){
+    if(path!=='#/index'){
     window.location.href='/#/login';
-
+    }
   }else{
     alert(res.msg);
+    return Promise.reject(res);
   }
 })
 
 Vue.use(VueAxios,axios);
+Vue.use(VueCookie);
+Vue.use({
+  loading:'/imgs/loading-svg/loading-bars.svg'
+})
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')

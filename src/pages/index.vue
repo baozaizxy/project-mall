@@ -201,7 +201,7 @@
         ],
         phoneList:[
           ],
-        showModal:false
+        showModal:true
       }
     },
     mounted(){

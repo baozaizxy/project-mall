@@ -10,13 +10,8 @@ import OrderConfirm from './pages/orderConfirm'
 import OrderList from './pages/orderList'
 import OrderPay from './pages/orderPay'
 import AliPay from './pages/aliPay'
-//import Express from 'express'
-import User from './api/user'
+import Login from './pages/login'
 Vue.use(Router);
-
-Router.get('/user',User.get)
-module.exports = Router
-
 
 export default new Router({
     routes:[
@@ -41,6 +36,11 @@ export default new Router({
                 component:Detail,
             },
             ]
+        },
+        {
+            path:'/login',
+            name:'login',
+            component:Login,
         },
         {
             path:'/cart',
