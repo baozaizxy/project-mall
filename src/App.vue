@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-   <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,42 +9,43 @@
 //import {axios} from 'axios'
 
 export default {
-  name: 'App',
-  components: {
-    
+  name: "App",
+  components: {},
+  data() {
+    return {};
   },
-  data(){
-  },
-  mounted(){
-    this.getUser();
-    this.getCartCount();
-  },
-  methods:{
-    getUser(){
-      this.axios.get('/user').then(()=>{
-        // to-do 保存到vuex
-      })
-    },
-    getCartCount(){
-      this.axios.get('/carts/products/sum').then(()=>{
-
-      })
-
+  mounted() {
+    if (this.$cookie.get("userId")) {
+      this.getUser();
+      this.getCartCount();
     }
-  }
-}
+  },
+  methods: {
+    getUser() {
+      this.axios.get("/user").then((res) => {
+        this.$store.dispatch("saveUserName", res.username);
+      });
+    },
+    getCartCount() {
+      this.axios.get("/carts/products/sum").then((res) => {
+        this.$store.dispatch("saveCartCount", res);
+      });
+    },
+  },
+};
 </script>
 
-<style>
-@import './assets/scss/reset.scss';
-@import './assets/scss/button.scss';
-@import './assets/scss/config.scss'
-
+<style lang="scss">
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/config.scss";
+@import "./assets/scss/button.scss";
 </style>
 
-<script type="text/javascript"> function load(){ 
-  var ele = document.getElementsByTagName("div")[0]; 
-  var content = ele.innerHTML; 
-  console.log(content); } 
-  window.onload = load;
-  </script>
+<script type="text/javascript">
+function load() {
+  var ele = document.getElementsByTagName("div")[0];
+  var content = ele.innerHTML;
+  console.log(content);
+}
+window.onload = load;
+</script>

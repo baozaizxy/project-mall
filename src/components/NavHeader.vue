@@ -1,4 +1,3 @@
-
 <template>
     <div class="header">
       <div class="nav-topbar">
@@ -13,7 +12,9 @@
             <a href="javascript:;" v-if="username">{{username}}</a>
             <a href="javascript:;" v-if="!username" @click="login">登录</a>
             <a href="javascript:;" v-if="username">我的订单</a>
-            <a href="javascript:;" class="my-cart" @click="goToCart"><span class="icon-cart"></span>购物车</a>
+            <a href="javascript:;" class="my-cart" @click="goToCart">
+              <span class="icon-cart"></span>购物车({{cartCount}})
+              </a>
           </div>
         </div>
       </div>
@@ -115,13 +116,22 @@
     </div>
 </template>
 <script>
+  import{mapState}from'vuex'
   export default{
     name:'nav-header',
     data(){
       return{
-        username:'sherry',
         phoneList:[]
       }
+    },
+    computed:{
+      /*username(){
+        return this.$store.stste.username;
+      },
+      cartCount(){
+        return this.$store.stste.cartCount;
+      },*/
+       ...mapState(['username','cartCount'])
     },
     filters:{
       currency(val){
@@ -157,10 +167,10 @@
 </script>
 <style lang="scss">
 
- @import './../assets/scss/base.scss';
- @import './../assets/scss/config.scss';
- @import './../assets/scss/mixin.scss';
- 
+ @import '../assets/scss/base.scss';
+ @import '../assets/scss/mixin.scss';
+ @import '../assets/scss/config.scss';
+
 
 .header{
     .nav-topbar{
@@ -312,7 +322,7 @@
               box-sizing: border-box;
             }
             a{
-              @include bgImg(18px,18px,'/imgs/icon-search.png');
+              @include bgImg(18px,18px,'/imgs/icon-search.png',contain);
               margin-left:17px;
             }
           }

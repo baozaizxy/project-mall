@@ -238,6 +238,7 @@
 <style lang="scss">
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
+@import './../assets/scss/base.scss';
 .index{
   .swiper-box{
      .nav-menu{
@@ -396,9 +397,9 @@
                 }
                 .price{
                   color:#F20A0A;
-                  font-size:$fontJ;
+                  font-size:14px;
                   font-weight:bold;
-                  cursor:pointer;//满足加购物车的功能
+                  cursor:pointer;  //满足加购物车的功能
                   &:after{
                     @include bgImg(22px,22px,'/imgs/icon-cart-hover.png');
                     content:' ';
